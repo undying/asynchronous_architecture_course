@@ -2,13 +2,23 @@
 ## Design
 ### Domains
 
-| Domain Name | Models                 |
-| ----------- | ---------------------- |
-| Auth        | Users                  |
-| TaskTracker | Tasks                  |
-| Accounting  | Transactions, Balance  |
-| Analytics   | StatTasks, StatBalance |
-|             |                        |
+| Domain Name | Models                 | Services        |
+| ----------- | ---------------------- | -------------   |
+| Auth        | Users                  | Web, DB         |
+| TaskTracker | Tasks                  | Web, Worker, DB |
+| Accounting  | Transactions, Balance  | Web, Cron, DB   |
+| Analytics   | StatTasks, StatBalance | Web, DB         |
+| Mailing     |                        | Web             |
+
+### Events
+
+| Event                       | Producer    | Consumer   |
+|-----------------------------|-------------|------------|
+| Task Created or Updated     | TaskTracker | Analytics  |
+| Task Assigned or Closed     | TaskTracker | Accounting |
+| Balance Updated             | Accounting  | Analytics  |
+| User Payed                  | Accountinf  | Mailing    |
+| User Daily Report Generated | Accounting  | Mailing    |
 
 ### Model
 ```mermaid
@@ -102,8 +112,8 @@ Participant DB
 Participant Bus
 
 User ->> TaskTracker: Create Task
-TaskTracker --> DB: INSERT INTO tasks
-TaskTracker --> Bus: Task Created
+TaskTracker -->> DB: INSERT INTO tasks
+TaskTracker -->> Bus: Task Created
 ```
 
 **Description:** Менеджеры или администраторы должны иметь кнопку «заассайнить задачи», которая возьмёт все открытые задачи и рандомно заассайнит каждую на любого из сотрудников (кроме менеджера и администратора) . Не успел закрыть задачу до реассайна — сорян, делай следующую.
