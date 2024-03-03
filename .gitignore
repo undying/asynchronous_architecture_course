@@ -16,6 +16,9 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+venv
+__pycache__
+db.sqlite3
 
 # Go workspace file
 go.work
