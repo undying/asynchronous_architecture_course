@@ -17,11 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-
-from . import views
+from dashboard import views as dashboard_views
 
 urlpatterns = [
-    path("", views.UserTasksView.as_view(), name='user_tasks'),
-    path("social-auth/", include("social_django.urls", namespace="social")),
+    path("", dashboard_views.IndexView.as_view()),
+    path("", include("social_django.urls", namespace="social")),
     path("admin/", admin.site.urls),
 ]

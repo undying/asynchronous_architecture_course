@@ -20,13 +20,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2s#9dj&an-x9c303f6y3_%@54ue%+uajw50kyeowon=u6q8)!r"
+SECRET_KEY = "django-insecure-17r7xqwlkd*%$@8#19c=!!a%(zflik6-k70997^@2dx4y00izb"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
+LOGIN_URL = "/admin/login/"
+CORS_ORIGIN_ALLOW_ALL = True
+
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = None
+
+AUTHENTICATION_BACKENDS = [
+    "oauth2_provider.backends.OAuth2Backend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 # Application definition
 
@@ -37,8 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users",
     "oauth2_provider",
-    "corsheaders",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
@@ -50,18 +63,26 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "oauth2_provider.middleware.OAuth2TokenMiddleware" # https://django-oauth-toolkit.readthedocs.io/en/latest/tutorial/tutorial_03.html
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-ROOT_URLCONF = "auth.urls"
+LOGGING = {
+    "version": 1,
+    "handlers": {
+        "console": {"class": "logging.StreamHandler"},
+    },
+    "root": {"handlers": ["console"], "level": "DEBUG"},
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
+    }
+}
 
-#LOGIN_REDIRECT_URL = ''
-#LOGOUT_REDIRECT_URL = ''
+ROOT_URLCONF = "auth.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["auth/templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

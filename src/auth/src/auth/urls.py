@@ -17,12 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-
-from . import views
+from users import views as users_views
 
 urlpatterns = [
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("api/userinfo/", users_views.UserInfoView.as_view(), name="userinfo"),
     path("admin/", admin.site.urls),
     path("o/", include("oauth2_provider.urls", namespace="oauth2_provider")),
-    path("", views.IndexView.as_view()),
 ]
