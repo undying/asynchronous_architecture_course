@@ -1,1 +1,23 @@
-<a href="{% url "social:begin" "popug_oauth2" %}">Popug Oauth2</a>
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{% url 'dashboard:task_create' %}">Create Task</a>
+<!-- dashboard.html -->
+<h2>Created Tasks</h2>
+<ul>
+{% for task in authored_tasks %}
+    <li>{{ task }}</li>
+{% empty %}
+    <li>No tasks created.</li>
+{% endfor %}
+</ul>
+
+<h2>Assigned Tasks</h2>
+<ul>
+{% for task in assigned_tasks %}
+    <li>{{ task }}</li>
+{% empty %}
+    <li>No tasks assigned.</li>
+{% endfor %}
+</ul>
+{% endblock %}

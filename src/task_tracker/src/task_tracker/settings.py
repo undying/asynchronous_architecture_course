@@ -38,6 +38,7 @@ CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SAMESITE = None
 SOCIAL_AUTH_FIELDS_STORED_IN_SESSION = ['state']
 USE_PKCE = True
+LOGIN_URL = "login" # TTLoginView in views.py
 
 # change cookie name because of 127.0.0.1 host https://github.com/omab/python-social-auth/issues/534#issuecomment-1947104240
 SESSION_COOKIE_NAME = "tt_sessionid"

@@ -35,6 +35,8 @@ erDiagram
 		int author_id
 		int assignee_id
 		bool is_completed
+        text titile
+        text description
 		datetime created_at
 		datetime updated_at
 		datetime completed_at

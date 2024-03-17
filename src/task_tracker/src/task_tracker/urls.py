@@ -18,8 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from dashboard import views as dashboard_views
+from task_tracker import views as tt_views
+
 
 urlpatterns = [
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
+    path("accounts/login/", tt_views.TTLoginView.as_view(), name="login"),
     path("", dashboard_views.IndexView.as_view()),
     path("", include("social_django.urls", namespace="social")),
     path("admin/", admin.site.urls),

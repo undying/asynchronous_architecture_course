@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      Email: {{ request.user.email }}
+      <nav>
+        <ul>
+          <li><a href="">Assigned to me</a></li>
+          <li><a href="">Created by me</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+      {% block footer %}
+      &copy; Popug Task Tracker
+      {% endblock footer %}
+    </footer>
+
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>
