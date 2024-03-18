@@ -5,15 +5,17 @@ from django.db import models
 
 
 class Task(models.Model):
-    author_id = models.ForeignKey(
+    author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="authored_tasks",
     )
-    assignee_id = models.ForeignKey(
+    assignee = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="assigned_tasks",
+        null=True,
+        blank=True,
     )
     title = models.TextField()
     description = models.TextField()
